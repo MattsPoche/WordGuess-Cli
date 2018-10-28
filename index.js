@@ -1,7 +1,7 @@
-let Word = require("./Word");
-let inquirer = require("inquirer");
+const Word = require("./Word");
+const inquirer = require("inquirer");
 
-let words = ["ten",
+const words = ["ten",
 "ground",
 "plough",
 "sore",
@@ -14,23 +14,41 @@ let words = ["ten",
 "succeed",
 "flippant"];
 
+let remainingGuesses = 20;
+
 //Math.floor(Math.random() * (max - min + 1) ) + min;
 let random = Math.floor(Math.random()*(words.length)); //random word
 //instanciate new word 
 let guessWord = new Word(words[random]);
-//init method creates an array of Letters using the random word
-guessWord.init();
-
-input();
 
 function input() {
     inquirer.prompt([
         {
             name: "guess",
-            message: `The secret word is: ${guessWord.getWord()} \nTry to guess a letter:`
+            message: `The secret word is: ${guessWord.getWord()} \nYou have ${remainingGuesses} guesses remaining\nTry to guess a letter:`
         }
     ]).then(function(answer) {
-        guessWord.wordGuess(answer.guess);
-        input();
+        if(answer.guess.length === 1){
+            guessWord.wordGuess(answer.guess);
+            remainingGuesses--;
+        }else{
+            console.log("Guesses must be a single character only");
+        }
+        if(remainingGuesses > 0 && !guessWord.checkWord()){
+            input();
+        }else{
+            gameOver();
+        }
     });
 }
+
+function gameOver() {
+    console.log("The secret word is: "+guessWord.word);
+    if(guessWord.checkWord()){
+        console.log("You won!");
+    }else{
+        console.log("You lose!");
+    }
+}
+
+input();
