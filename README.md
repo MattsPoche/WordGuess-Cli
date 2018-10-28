@@ -1,4 +1,5 @@
 Word Guess - CLI
+----------------------------------------------------------
 
 This project uses node.js to implement a word guess game in a command line interface.
 
