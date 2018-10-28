@@ -7,8 +7,8 @@ Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 Prerequisites:
-Node.js ^v8.11.3
-npm ^5.6.0
+* Node.js ^v8.11.3
+* npm ^5.6.0
 
 Installing:
 * download the required files to a directory or clone this repository
